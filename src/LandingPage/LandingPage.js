@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import Filter from "../components/Filter/Filter";
+import ProductPane from "../components/ProductPane/ProductPane";
 
 const axios = require("axios");
 const LandingPage = () => {
@@ -6,6 +8,7 @@ const LandingPage = () => {
   const [product, setProduct] = useState({});
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
+  const [selected, setSelected] = useState(null);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -40,6 +43,7 @@ const LandingPage = () => {
         if (!sta.includes(s)) sta = [...sta, s];
         if (!cit.includes(c)) cit = [...cit, c];
       }
+      console.log(pro);
       setProduct(pro);
       setCity(cit);
       setState(sta);
@@ -47,8 +51,9 @@ const LandingPage = () => {
   }, [data]);
 
   return (
-    <div>
-      <div>LandingPage</div>
+    <div className="flex flex-column p-8 w-screen h-screen">
+      <Filter products={product} city={city} state={state} />
+      <ProductPane products={product} setSelected={(val) => setSelected(val)} />
     </div>
   );
 };

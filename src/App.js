@@ -3,7 +3,7 @@ import "./App.css";
 import LandingPage from "./LandingPage/LandingPage";
 function App() {
   return (
-    <div className="App bg-primary">
+    <div className="bg-primary text-white h-screen w-screen">
       <LandingPage />
     </div>
   );
