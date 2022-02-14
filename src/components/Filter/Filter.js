@@ -2,7 +2,17 @@ import React from "react";
 import { City } from "./City/City";
 import { Product } from "./Product/Product";
 import { State } from "./State/State";
-const Filter = ({ products, city, state }) => {
+const Filter = ({ products, city, state, selected }) => {
+  let selectCity = null;
+  let selectState = null;
+  if (selected) {
+    selectCity = [
+      ...new Set(products[selected].map((val) => val.address.city)),
+    ];
+    selectState = [
+      ...new Set(products[selected].map((val) => val.address.state)),
+    ];
+  }
   return (
     <div className="w-1/4 p-2 pr-4 ">
       <div className="p-3 pr-6 bg-secondary rounded-[1.1rem] max-h-full overflow-auto scrollbar-hide">
@@ -12,8 +22,9 @@ const Filter = ({ products, city, state }) => {
         </div>
         <div className="max-h-full overflow-auto scrollbar-hide">
           <Product products={products} />
-          <State state={state} />
-          <City city={city} />
+          {selected ? <State state={selectState} /> : <State state={state} />}
+
+          {selected ? <City city={selectCity} /> : <City city={city} />}
         </div>
       </div>
     </div>

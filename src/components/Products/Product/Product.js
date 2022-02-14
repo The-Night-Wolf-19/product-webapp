@@ -1,20 +1,27 @@
 import React, { useRef } from "react";
 
-export const Product = ({ product }) => {
-  const clickHandler = (e) => {
-    console.log(e);
-    // let sel = null;
-    // sel = document.getElementsByClassName(`hover\\:scale-110:hover`);
-    // console.log(sel);
-  };
+export const Product = ({ product, setSelected, selected }) => {
   let eleRef = useRef(null);
+  const clickHandler = (e) => {
+    if (selected == null) {
+      setSelected(product.product_name);
+      eleRef.current.classList.add("scale-110");
+    } else {
+      if (eleRef.current.classList.contains("scale-110")) {
+        eleRef.current.classList.remove("scale-110");
+        setSelected(null);
+      } else {
+        setSelected(product.product_name);
+        eleRef.current.classList.add("scale-110");
+      }
+    }
+  };
   return (
     <div
       className="bg-primary rounded-md p-2 mr-6 mb-4 w-fit min-w-[30%] max-w-[30%] h-auto overflow-hidden transition-transform hover:scale-110 focus:scale-110"
       onClick={(e) => {
-        eleRef.current.classList.add("scale-110");
-        console.log(eleRef.current);
         clickHandler(e);
+        e.stopPropagation();
       }}
       ref={eleRef}
     >

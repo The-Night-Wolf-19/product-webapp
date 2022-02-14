@@ -1,7 +1,13 @@
 import React from "react";
 import { Product } from "./Product/Product";
-export const Products = ({ products }) => {
-  let elements = products.map((val) => <Product product={val} />);
+export const Products = ({ products, setSelected, selected }) => {
+  let elements = products.map((val) => (
+    <Product
+      product={val}
+      setSelected={(val) => setSelected(val)}
+      selected={selected}
+    />
+  ));
   return (
     <div className="mb-8">
       <p className="text-lg">{products[0].product_name}</p>
